@@ -15,13 +15,13 @@
     <div class="stats">
         <div id="score" class="upper">Score: <span class="score">0</span></div>
         <div id="blank"></div>
-        <div id="time_left" class="upper">Time Left: <span class="timer">60</span></div>
+        <div id="time_left" class="upper">Seconds Left: <span class="timer"></span></div>
     </div>
 
-    <p class="msg upper"></p>
+    <p class="msg"></p>
 
-    <section id="boggle_board">
-            <table id="board">
+    <section id="boggle">
+            <table id="board_board">
                 <tbody>
                     {% for row in board %}
                         <tr>
@@ -36,7 +36,7 @@
             </table>
 
 
-        <form method="post" class="add-word">
+        <form method="POST" class="add-word">
             <input type="text" name="word" placeholder="Try word here!" class="word" autofocus>
             <button>Submit!</button>
         </form>
@@ -46,5 +46,6 @@
     <script src="http://unpkg.com/jquery"></script>
     <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
     <script src="/static/app.js"></script>
+
 </body>
 </html>

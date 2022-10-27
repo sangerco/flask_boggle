@@ -16,6 +16,7 @@ class BoggleGame {
 
     showScore() {
         $(".score", this.board).text(this.score);
+        console.log(this.score);
     }
 
     showMessage(msg, cls) {
@@ -23,6 +24,7 @@ class BoggleGame {
             .text(msg)
             .removeClass()
             .addClass(`msg ${cls}`);
+        console.log(msg, cls)
     }
 
     async handleSubmit(e) {
@@ -32,12 +34,12 @@ class BoggleGame {
         let word = $word.val();
         if (!word) return;
 
-        if (this.word.has(word)) {
+        if (this.words.has(word)) {
             this.showMessage(`${word} has already been found!`, "err");
-            return
+            return;
         }
 
-        const res = await axios.get("/check-word", { params: { word: word } });
+        const res = await axios.get("/check_word", { params: { word: word } });
         console.log(res);
         if (res.data.result === "not-word") {
             this.showMessage(`${word} is not a valid word!`, "err");
@@ -55,6 +57,7 @@ class BoggleGame {
 
     showTimer() {
         $(".timer", this.board).text(this.secs);
+        console.log(this.secs)
     }
 
     async tick() {
