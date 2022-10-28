@@ -15,12 +15,12 @@ class BoggleGame {
     }
 
     showScore() {
-        $(".score", this.board).text(this.score);
+        $(".score").text(this.score);
         console.log(this.score);
     }
 
     showMessage(msg, cls) {
-        $(".msg", this.board)
+        $(".msg")
             .text(msg)
             .removeClass()
             .addClass(`msg ${cls}`);
@@ -56,7 +56,7 @@ class BoggleGame {
     }
 
     showTimer() {
-        $(".timer", this.board).text(this.secs);
+        $(".timer").text(this.secs);
         console.log(this.secs)
     }
 
@@ -72,11 +72,12 @@ class BoggleGame {
 
     async scoreGame() {
         $(".add-word", this.board).hide();
-        const res = await axios.post('/post_score', { score: this.score});
+        const res = await axios.post('/post_score', { score: this.score });
+        console.log(this.score);
         if (res.data.newHighScore) {
-            this.showMessage(`New High Score! ${score}`, "ok")
+            this.showMessage(`New High Score! ${this.score}`, "ok")
         } else {
-            this.showMessage(`Your score: ${score}`, "ok")
+            this.showMessage(`Your score: ${this.score}`, "ok")
         }
     }
 }

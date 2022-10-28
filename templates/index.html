@@ -13,7 +13,7 @@
     <div class="high_score"><b>High Score:</b> {{ high_score }} in {{ num_games }} games </div>
     <br>
     <div class="stats">
-        <div id="score" class="upper">Score: <span class="score">0</span></div>
+        <div id="game_score" class="upper">Score: <span class="score">0</span></div>
         <div id="blank"></div>
         <div id="time_left" class="upper">Seconds Left: <span class="timer"></span></div>
     </div>
@@ -21,19 +21,19 @@
     <p class="msg"></p>
 
     <section id="boggle">
-            <table id="board_board">
-                <tbody>
-                    {% for row in board %}
-                        <tr>
-                            {% for cell in row %}
-                                <td>
-                                    {{ cell }}
-                                </td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <table id="board_board">
+            <tbody>
+                {% for row in board %}
+                    <tr>
+                        {% for cell in row %}
+                            <td>
+                                {{ cell }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
 
         <form method="POST" class="add-word">
