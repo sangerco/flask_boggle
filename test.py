@@ -23,15 +23,16 @@ class FlaskTests(TestCase):
                 self.assertEqual(resp.status_code, 200)
                 self.assertIn('<table id="board_board">', html)
                 self.assertIn('<b>High Score:</b>', html)
-                self.assertIn('<span class="timer">60</span>', html)
+                self.assertIn('<span class="timer"></span>', html)
 
     def test_for_word_not_on_board(self):
         with app.test_client() as client:
-            resp = client.get('/check-word?word=abracadabra')
-            self.assertEqual(resp.json['result'], "not-on-board")
+            resp = client.get('/check-word?word=abracadabra')            
+            html = resp.get_data(as_text=True)
+            self.assertIn('<p class="msg err">abracadabra is not on the board!</p>', html)
 
-    def test_for_not_a_word(self):
-        with app.test_client() as client:
-            resp = client.get('/check-word?word=notaword')
-            self.assertEqual(resp.json['result'], "not-word")
+    # def test_for_not_a_word(self):
+    #     with app.test_client() as client:
+    #         resp = client.get('/check-word?word=notaword')
+    #         self.assertEqual(resp.json['result'], "not-word")
 
