@@ -50,3 +50,18 @@ class FlaskTests(TestCase):
             # self.assertIn('<p class="msg err">notaword is not a valid word!</p>', html) 
             self.assertEqual(res.json['result'], "not-word")
 
+    def test_for_valid_word(self):
+        """ Test for valid word by modifying the board in the session
+            Should get proper code
+        """
+        with self.client as client:
+            with client.session_transaction() as sess:
+                sess['board'] = [['D','O','G','G','G'],
+                                 ['D','O','G','G','G'],
+                                 ['D','O','G','G','G'],
+                                 ['D','O','G','G','G'],
+                                 ['D','O','G','G','G']]
+        res = self.client.get('/check_word?word=dog')
+        self.assertEqual(res.json['result'], "ok")
+
+
