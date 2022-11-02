@@ -12,33 +12,41 @@ class FlaskTests(TestCase):
         app.config['TESTING'] = True
 
     def test_homepage(self):
-            """ Test response code
-                check that board is created
-                check that High Score is created
-                check that timer is created
-            """
-            with self.client:
-                res = self.client.get('/')
-                html = res.get_data(as_text=True)
-                self.assertEqual(res.status_code, 200)
-                self.assertIn('<table id="board_board">', html)
-                self.assertIn('<b>High Score:</b>', html)
-                self.assertIn('<span class="timer"></span>', html)
+        """ Test response code
+            check that board is created
+            check that High Score is created
+            check that timer is created
+         """
+        with self.client:
+            res = self.client.get('/')
+            html = res.get_data(as_text=True)
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('<table id="board_board">', html)
+            self.assertIn('<b>High Score:</b>', html)
+            self.assertIn('<span class="timer"></span>', html)
 
     def test_for_word_not_on_board(self):
+        """ Test for word that cannot be on the board
+            Should get proper code
+        """
         with app.test_client() as client:
-            res = client.get('/check-word?word=abracadabra')
+            self.client.get('/')
+            res = self.client.get('/check_word?word=abracadabra')
             html = res.get_data(as_text=True)
-            self.assertIn('<p class="msg err">abracadabra is not on the board!</p>', html)   
+            # self.assertIn('<p class="msg err">abracadabra is not on the board!</p>', html)   
             self.assertEqual(res.json['result'], "not-on-board")
 
 
 
 
     def test_for_not_a_word(self):
+        """ Test for nonsense word
+            Should get proper code
+        """
         with app.test_client() as client:
-            res = client.get('/check-word?word=notaword')
+            self.client.get('/')
+            res = self.client.get('/check_word?word=notaword')
             html = res.get_data(as_text=True)
-            self.assertIn('<p class="msg err">notaword is not a valid word!</p>', html) 
+            # self.assertIn('<p class="msg err">notaword is not a valid word!</p>', html) 
             self.assertEqual(res.json['result'], "not-word")
 
